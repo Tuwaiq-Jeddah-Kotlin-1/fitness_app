@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "56628122648",
+    "project_id": "fitnessapp-a415c",
+    "storage_bucket": "fitnessapp-a415c.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:56628122648:android:0f517ff5439a01d5f29f6d",
+        "android_client_info": {
+          "package_name": "com.tuwaiq.fitnessapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "56628122648-iv93tib54j14hcajkiq8rnqhpm0t8adh.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCaz5z4NdRTt8D2Cs0jikFyC9xm_r0PgHg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "56628122648-iv93tib54j14hcajkiq8rnqhpm0t8adh.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
