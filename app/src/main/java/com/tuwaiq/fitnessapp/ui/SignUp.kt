@@ -5,29 +5,27 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ArrayAdapter
+import android.widget.Toast
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.get
+import com.tuwaiq.fitnessapp.Auth.Response
 import com.tuwaiq.fitnessapp.R
+import com.tuwaiq.fitnessapp.VM_Auth
+import com.tuwaiq.fitnessapp.databinding.FragmentSignUpBinding
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
 
-/**
- * A simple [Fragment] subclass.
- * Use the [SignUp.newInstance] factory method to
- * create an instance of this fragment.
- */
-class SignUp : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
-
+class SignUp : Fragment(), Response {
+    private lateinit var binding: FragmentSignUpBinding
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
-        }
+
+    }
+
+    companion object {
+        fun newInstance() = SignUp()
+
     }
 
     override fun onCreateView(
@@ -35,26 +33,35 @@ class SignUp : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_sign_up, container, false)
+        binding = FragmentSignUpBinding.inflate(inflater, container, false)
+        return binding.root
     }
 
-    companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment SignUp.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            SignUp().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
-                }
-            }
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        val viewModel = ViewModelProvider(this)[VM_Auth::class.java]
+        binding.lifecycleOwner = this
+        binding.vmSignUp = viewModel
+        viewModel.response = this
+
     }
+
+
+    override fun onResume() {
+        super.onResume()
+        // dropdown list of gender
+        val gender = resources.getStringArray(R.array.gender)
+        val arrayAdapter = ArrayAdapter(requireContext(), R.layout.dropdown_items, gender)
+        binding.genderAutoTV.setAdapter(arrayAdapter)
+    }
+
+    override fun success(msg: String) {
+        Toast.makeText(requireContext(), msg, Toast.LENGTH_LONG).show()
+    }
+
+    override fun fail(msg: String) {
+        Toast.makeText(requireContext(), msg, Toast.LENGTH_LONG).show()
+    }
+
+
 }

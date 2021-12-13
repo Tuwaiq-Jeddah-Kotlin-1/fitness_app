@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/navigation"
+    app:startDestination="@id/login">
+
+    <fragment
+        android:id="@+id/signUp"
+        android:name="com.tuwaiq.fitnessapp.ui.SignUp"
+        android:label="SignUp" >
+        <action
+            android:id="@+id/action_signUp_to_login"
+            app:destination="@id/login" />
+    </fragment>
+    <fragment
+        android:id="@+id/login"
+        android:name="com.tuwaiq.fitnessapp.ui.Login"
+        android:label="Login" >
+        <action
+            android:id="@+id/action_login_to_signUp"
+            app:destination="@id/signUp" />
+    </fragment>
+</navigation>

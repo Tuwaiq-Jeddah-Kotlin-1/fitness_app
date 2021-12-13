@@ -1,14 +1,162 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".ui.SignUp">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <data>
+
+        <variable
+            name="vm_signUp"
+            type="com.tuwaiq.fitnessapp.VM_Auth" />
+    </data>
+
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/rootLayout_Signup"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        tools:context=".ui.SignUp">
 
-</FrameLayout>
+
+            <EditText
+                android:id="@+id/name_Signup"
+                android:layout_width="177dp"
+                android:layout_height="36dp"
+                android:layout_marginTop="64dp"
+                android:ems="10"
+                android:hint="name"
+                android:inputType="textPersonName"
+                android:text="@={vm_signUp.name}"
+                app:layout_constraintEnd_toEndOf="@+id/Email_Signup"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="@+id/Email_Signup"
+                app:layout_constraintTop_toBottomOf="@+id/tv_SignUp"
+                tools:ignore="TouchTargetSizeCheck,SpeakableTextPresentCheck" />
+
+            <EditText
+                android:id="@+id/Email_Signup"
+                android:layout_width="183dp"
+                android:layout_height="48dp"
+                android:layout_marginTop="16dp"
+                android:ems="10"
+                android:hint="email"
+                android:inputType="textEmailAddress"
+                android:text="@={vm_signUp.email}"
+                app:layout_constraintEnd_toEndOf="@+id/password_Signup"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="@+id/password_Signup"
+                app:layout_constraintTop_toBottomOf="@+id/name_Signup"
+                tools:ignore="SpeakableTextPresentCheck" />
+
+            <EditText
+                android:id="@+id/password_Signup"
+                android:layout_width="183dp"
+                android:layout_height="36dp"
+                android:layout_marginTop="12dp"
+                android:ems="10"
+                android:hint="password"
+                android:inputType="textPassword"
+                android:text="@={vm_signUp.password}"
+                app:layout_constraintEnd_toEndOf="@+id/age_Signup"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="@+id/age_Signup"
+                app:layout_constraintTop_toBottomOf="@+id/Email_Signup"
+                tools:ignore="TouchTargetSizeCheck,SpeakableTextPresentCheck" />
+
+            <EditText
+                android:id="@+id/age_Signup"
+                android:layout_width="184dp"
+                android:layout_height="33dp"
+                android:layout_marginTop="12dp"
+                android:ems="10"
+                android:hint="Age"
+                android:inputType="number"
+                android:text="@={vm_signUp.age}"
+                app:layout_constraintEnd_toEndOf="@+id/height_Signup"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="@+id/height_Signup"
+                app:layout_constraintTop_toBottomOf="@+id/password_Signup"
+                tools:ignore="TouchTargetSizeCheck,SpeakableTextPresentCheck" />
+
+            <EditText
+                android:id="@+id/height_Signup"
+                android:layout_width="186dp"
+                android:layout_height="39dp"
+                android:layout_marginTop="12dp"
+                android:ems="10"
+                android:hint="height"
+                android:inputType="number"
+                android:text="@={vm_signUp.height}"
+                app:layout_constraintEnd_toEndOf="@+id/weight_Signup"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="@+id/weight_Signup"
+                app:layout_constraintTop_toBottomOf="@+id/age_Signup"
+                tools:ignore="TouchTargetSizeCheck,SpeakableTextPresentCheck" />
+
+            <EditText
+                android:id="@+id/weight_Signup"
+                android:layout_width="184dp"
+                android:layout_height="39dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="112dp"
+                android:ems="10"
+                android:hint="weight"
+
+                android:inputType="numberDecimal"
+                android:text="@={vm_signUp.weight}"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/height_Signup"
+                tools:ignore="TouchTargetSizeCheck,SpeakableTextPresentCheck" />
+
+            <TextView
+                android:id="@+id/tv_SignUp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="96dp"
+                android:text="Sign Up"
+                android:textSize="40sp"
+                app:layout_constraintBottom_toTopOf="@+id/name_Signup"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.425"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.0" />
+
+        <Button
+            android:id="@+id/btn_Signup"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="92dp"
+            android:onClick="@{vm_signUp::signUp}"
+            android:text="Sign up"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.501"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <com.google.android.material.textfield.TextInputLayout
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+                android:layout_width="186dp"
+                android:layout_height="42dp"
+                android:hint="Gender"
+                app:layout_constraintBottom_toTopOf="@+id/btn_Signup"
+                app:layout_constraintEnd_toEndOf="@+id/weight_Signup"
+                app:layout_constraintHorizontal_bias="1.0"
+                app:layout_constraintStart_toStartOf="@+id/weight_Signup"
+                app:layout_constraintTop_toBottomOf="@+id/weight_Signup"
+                app:layout_constraintVertical_bias="0.0">
+
+                <AutoCompleteTextView
+                    android:id="@+id/gender_AutoTV"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:inputType="none"
+                    android:paddingTop="10dp"
+                    android:paddingBottom="10dp"
+                    android:text="@={vm_signUp.gender}"
+                    tools:ignore="TouchTargetSizeCheck" />
+            </com.google.android.material.textfield.TextInputLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>
