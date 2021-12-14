@@ -10,13 +10,14 @@ import android.widget.Toast
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.get
+import androidx.navigation.fragment.findNavController
 import com.tuwaiq.fitnessapp.Auth.Response
 import com.tuwaiq.fitnessapp.R
 import com.tuwaiq.fitnessapp.VM_Auth
 import com.tuwaiq.fitnessapp.databinding.FragmentSignUpBinding
 
 
-class SignUp : Fragment(), Response {
+class SignUp : Fragment(),Response{
     private lateinit var binding: FragmentSignUpBinding
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -44,9 +45,13 @@ class SignUp : Fragment(), Response {
         binding.vmSignUp = viewModel
         viewModel.response = this
 
+        binding.btnSignup.setOnClickListener {
+            viewModel.signUp(findNavController())
+
+
+        }
+
     }
-
-
     override fun onResume() {
         super.onResume()
         // dropdown list of gender
@@ -54,6 +59,7 @@ class SignUp : Fragment(), Response {
         val arrayAdapter = ArrayAdapter(requireContext(), R.layout.dropdown_items, gender)
         binding.genderAutoTV.setAdapter(arrayAdapter)
     }
+
 
     override fun success(msg: String) {
         Toast.makeText(requireContext(), msg, Toast.LENGTH_LONG).show()

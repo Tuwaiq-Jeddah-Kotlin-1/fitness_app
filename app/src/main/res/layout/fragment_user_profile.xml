@@ -1,14 +1,113 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".ui.UserProfile">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <data>
+<variable
+    name="vm_profile"
+    type="com.tuwaiq.fitnessapp.data.User" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/frameLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        tools:context=".ui.UserProfile">
 
-</FrameLayout>
+        <EditText
+            android:id="@+id/profile_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            android:ems="10"
+            android:inputType="textPersonName"
+            android:minHeight="48dp"
+            android:text="@={vm_profile.name}"
+            app:layout_constraintBottom_toTopOf="@+id/profile_age"
+            app:layout_constraintEnd_toEndOf="@+id/profile_age"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="@+id/profile_age" />
+
+        <EditText
+            android:id="@+id/profile_age"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="20dp"
+            android:ems="10"
+            android:inputType="textPersonName"
+            android:minHeight="48dp"
+            android:text="@={``+vm_profile.age}"
+            app:layout_constraintBottom_toTopOf="@+id/profile_email"
+            app:layout_constraintEnd_toEndOf="@+id/profile_email"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="@+id/profile_email" />
+
+        <EditText
+            android:id="@+id/profile_email"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="20dp"
+            android:ems="10"
+            android:inputType="textPersonName"
+            android:minHeight="48dp"
+            android:text="@={vm_profile.email}"
+            app:layout_constraintBottom_toTopOf="@+id/profile_gender"
+            app:layout_constraintEnd_toEndOf="@+id/profile_gender"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="@+id/profile_gender" />
+
+        <EditText
+            android:id="@+id/profile_gender"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="20dp"
+            android:ems="10"
+            android:inputType="textPersonName"
+            android:minHeight="48dp"
+            android:text="@={vm_profile.gender}"
+            app:layout_constraintBottom_toTopOf="@+id/profile_weight"
+            app:layout_constraintEnd_toEndOf="@+id/profile_weight"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="@+id/profile_weight" />
+
+        <EditText
+            android:id="@+id/profile_weight"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="20dp"
+            android:ems="10"
+            android:inputType="textPersonName"
+            android:minHeight="48dp"
+            android:text="@={``+vm_profile.weight}"
+            app:layout_constraintBottom_toTopOf="@+id/profile_height"
+            app:layout_constraintEnd_toEndOf="@+id/profile_height"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="@+id/profile_height" />
+
+        <EditText
+            android:id="@+id/profile_height"
+            android:layout_width="209dp"
+            android:layout_height="48dp"
+            android:layout_marginBottom="200dp"
+            android:ems="10"
+            android:inputType="textPersonName"
+            android:text="@={``+vm_profile.height}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.594"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <TextView
+            android:id="@+id/textView9"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="72dp"
+            android:text="profile information"
+            app:layout_constraintBottom_toTopOf="@+id/profile_name"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.608" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
