@@ -5,29 +5,19 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import com.tuwaiq.fitnessapp.R
+import com.tuwaiq.fitnessapp.VM_profile
+import com.tuwaiq.fitnessapp.databinding.FragmentMainScreenBinding
+import com.tuwaiq.fitnessapp.databinding.FragmentUserProfileBinding
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
 
-/**
- * A simple [Fragment] subclass.
- * Use the [MainScreen.newInstance] factory method to
- * create an instance of this fragment.
- */
 class MainScreen : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
-
+    lateinit var binding: FragmentMainScreenBinding
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
-        }
+
     }
 
     override fun onCreateView(
@@ -35,26 +25,43 @@ class MainScreen : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_main_screen, container, false)
+        binding = FragmentMainScreenBinding.inflate(inflater, container, false)
+        return binding.root
     }
 
     companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment MainScreen.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            MainScreen().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
-                }
-            }
+        fun newInstance() = MainScreen()
+
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        val profileVM = ViewModelProvider(this)[VM_profile::class.java]
+        binding.lifecycleOwner = this
+        profileVM.getUser_()
+        profileVM.user.observe(viewLifecycleOwner, {
+            binding.userInfoMain = it.first()
+
+        })
+        binding.tvCore.setOnClickListener {
+            val action = MainScreenDirections.actionMainScreenToExercisesList("Core")
+            findNavController().navigate(action)
+        }
+        binding.tvLowerbody.setOnClickListener {
+            val action = MainScreenDirections.actionMainScreenToExercisesList("Lower Body")
+            findNavController().navigate(action)
+        }
+        binding.tvUpperbody.setOnClickListener {
+            val action = MainScreenDirections.actionMainScreenToExercisesList("Upper Body")
+            findNavController().navigate(action)
+        }
+        binding.tvWarmUp.setOnClickListener {
+            val action = MainScreenDirections.actionMainScreenToExercisesList("warm up")
+            findNavController().navigate(action)
+        }
+        binding.mainContainerUserInfo.setOnClickListener{
+            val action = MainScreenDirections.actionMainScreenToUserProfile()
+            findNavController().navigate(action)
+        }
     }
 }

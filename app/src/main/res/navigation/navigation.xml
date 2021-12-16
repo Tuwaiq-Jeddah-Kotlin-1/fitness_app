@@ -20,11 +20,30 @@
             android:id="@+id/action_login_to_signUp"
             app:destination="@id/signUp" />
         <action
-            android:id="@+id/action_login_to_userProfile"
-            app:destination="@id/userProfile" />
+            android:id="@+id/action_login_to_mainScreen"
+            app:destination="@id/mainScreen" />
     </fragment>
     <fragment
         android:id="@+id/userProfile"
         android:name="com.tuwaiq.fitnessapp.ui.UserProfile"
         android:label="UserProfile" />
+    <fragment
+        android:id="@+id/mainScreen"
+        android:name="com.tuwaiq.fitnessapp.ui.MainScreen"
+        android:label="MainScreen" >
+        <action
+            android:id="@+id/action_mainScreen_to_userProfile"
+            app:destination="@id/userProfile" />
+        <action
+            android:id="@+id/action_mainScreen_to_exercisesList"
+            app:destination="@id/exercisesList" />
+    </fragment>
+    <fragment
+        android:id="@+id/exercisesList"
+        android:name="com.tuwaiq.fitnessapp.ui.ExercisesList"
+        android:label="ExercisesList" >
+        <argument
+            android:name="category"
+            app:argType="string" />
+    </fragment>
 </navigation>

@@ -55,8 +55,8 @@ class Firebase_repo() {
                     if (task.isSuccessful) {
                         Log.e("***********LOG IN", "*******SUCCEED")
                         response?.success("sign in repo worked")
-                        val action = LoginDirections.actionLoginToUserProfile()
-                        nav.navigate(R.id.action_login_to_userProfile)
+                        val action = LoginDirections.actionLoginToMainScreen()
+                        nav.navigate(action)
                     } else {
                         response?.fail("Error Message: " + task.exception!!.message.toString())
                     }

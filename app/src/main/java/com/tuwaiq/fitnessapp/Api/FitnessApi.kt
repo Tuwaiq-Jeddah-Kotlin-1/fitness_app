@@ -10,12 +10,17 @@ interface FitnessApi {
 
     @GET("users")
     suspend fun getUser(@Query("email") email:String ):List<User>
-    @GET("users")
-    suspend fun getAllUsers(): users
+
     @GET("exercise")
-    suspend fun getExercises(): Exercise
+    suspend fun getExercises(@Query("category") category:String ):List<Exercise>
+
+    @GET("users")
+    suspend fun getAllUsers(): List<users>
+
+/*    @GET("exercise")
+    suspend fun getExercises(): List<Exercise>*/
     @POST("users")
-    suspend fun addUser(@Body user: User): Response<User>
+    suspend fun addUser(@Body user: User): User
 
 
 }

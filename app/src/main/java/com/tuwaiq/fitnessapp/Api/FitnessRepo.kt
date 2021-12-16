@@ -14,18 +14,14 @@ class FitnessRepo {
     val fireRepo= Firebase_repo()
      val firebaseUserEmail:String=fireRepo.firebaseUserEmail
 
-    suspend fun getExercises(): Exercise = withContext(Dispatchers.IO) {
-        api.getExercises()
+    suspend fun getExercises(category:String): List<Exercise> = withContext(Dispatchers.IO) {
+        api.getExercises(category)
     }
 
     suspend fun getUser(): List<User> = withContext(Dispatchers.IO) {
         api.getUser(firebaseUserEmail)
 
     }
-    suspend fun getAllUsers(): users = withContext(Dispatchers.IO) {
-        api.getAllUsers()
-    }
-
     suspend fun addUser(user: User) {
         withContext(Dispatchers.IO) { api.addUser(user) }
     }
