@@ -1,5 +1,4 @@
 package com.tuwaiq.fitnessapp.data
-data class users(val users:List<User>)
 
 data class User(
     var id: String,

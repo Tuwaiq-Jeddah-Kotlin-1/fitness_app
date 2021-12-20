@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+<variable
+    name="workout_item"
+    type="com.tuwaiq.fitnessapp.data.Workout" />
+    </data>
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:text="add workout plan"
+        app:cardCornerRadius="5dp"
+        app:cardElevation="6dp"
+        android:layout_margin="10dp">
+
+        <TextView
+            android:id="@+id/workoutTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{workout_item.title}"
+            android:layout_margin="10dp" />
+
+    </androidx.cardview.widget.CardView>
+</layout>

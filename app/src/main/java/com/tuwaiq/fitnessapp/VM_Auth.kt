@@ -36,7 +36,6 @@ class VM_Auth() : ViewModel() {
             if (checkNullOrEmpty(arrayListOf(email.value, password.value))) {
                 repo.repo_logIn(email.value!!, password.value!!, nav)
                 response?.success("success logIn")
-
             } else {
                 //fail
                 response?.fail("fail sign in")
@@ -54,7 +53,9 @@ class VM_Auth() : ViewModel() {
                     // user object
                         val user =User(repo.firebaseUserid,name.value!!, age.value!!.toInt(),
                             email.value!!, gender.value!!,weight.value!!.toDouble(),height.value!!.toInt())
-                   withContext(Dispatchers.IO){fitnessRepo.addUser(user)}//add the user
+                   withContext(Dispatchers.IO){
+                       fitnessRepo.addUser(user)
+                   }//add the user
             } else {
                 response?.fail("fail sign up")
             }

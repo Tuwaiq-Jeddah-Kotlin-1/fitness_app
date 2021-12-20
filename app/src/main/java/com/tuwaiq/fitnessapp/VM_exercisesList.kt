@@ -10,7 +10,7 @@ import kotlinx.coroutines.launch
 class VM_exercisesList:ViewModel() {
     var exercises=MutableLiveData<List<Exercise>>()
     val repo =FitnessRepo()
-    fun getExercises(category:String){
+    fun getExercises(category:String?){
         viewModelScope.launch {
             exercises.postValue(repo.getExercises(category))
         }

@@ -4,9 +4,11 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-<variable
-    name="userInfo_main"
-    type="com.tuwaiq.fitnessapp.data.User" />
+
+        <variable
+            name="userInfo_main"
+            type="com.tuwaiq.fitnessapp.data.User" />
+
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -32,7 +34,7 @@
                     android:orientation="horizontal">
 
                     <ImageView
-                        android:id="@+id/imageView"
+                        android:id="@+id/main_user_image"
                         android:layout_width="50dp"
                         android:layout_height="50dp"
                         android:layout_margin="10dp"
@@ -60,12 +62,38 @@
                 </LinearLayout>
             </LinearLayout>
 
-            <androidx.recyclerview.widget.RecyclerView
+            <LinearLayout
+                android:id="@+id/workoutLayout"
                 android:layout_width="match_parent"
-                android:layout_height="60dp" />
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/RV_workoutTitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="60dp"
+                  />
+
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/btn_goToAddPlan"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:text="add workout plan"
+                    app:cardCornerRadius="5dp"
+                    app:cardElevation="6dp"
+                    android:layout_margin="10dp">
+                <TextView
+                    android:id="@+id/workoutTitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="add a plan"
+                    android:layout_margin="10dp"
+                    />
+                </androidx.cardview.widget.CardView>
+            </LinearLayout>
 
             <LinearLayout
-                android:id="@+id/exercises"
+                android:id="@+id/exercisesLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
