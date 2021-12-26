@@ -10,6 +10,7 @@ import androidx.navigation.NavDirections
 import androidx.navigation.NavHostController
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
+import com.google.firebase.auth.FirebaseAuth
 import com.tuwaiq.fitnessapp.Api.FitnessRepo
 import com.tuwaiq.fitnessapp.Auth.Firebase_repo
 import com.tuwaiq.fitnessapp.Auth.Response
@@ -29,9 +30,11 @@ class VM_Auth() : ViewModel() {
     val fitnessRepo = FitnessRepo()
     val repo = Firebase_repo()
     var response:Response?=null
+    var auth: FirebaseAuth = FirebaseAuth.getInstance()
 
 
     fun logIn(nav:NavController){
+
         viewModelScope.launch{
             if (checkNullOrEmpty(arrayListOf(email.value, password.value))) {
                 repo.repo_logIn(email.value!!, password.value!!, nav)
@@ -51,7 +54,7 @@ class VM_Auth() : ViewModel() {
                repo.repo_signUp(email.value!!, password.value!!,nav)
                     response?.success("success sign up")
                     // user object
-                        val user =User(repo.firebaseUserid,name.value!!, age.value!!.toInt(),
+                        val user =User("",name.value!!, age.value!!.toInt(),
                             email.value!!, gender.value!!,weight.value!!.toDouble(),height.value!!.toInt())
                    withContext(Dispatchers.IO){
                        fitnessRepo.addUser(user)
@@ -61,6 +64,7 @@ class VM_Auth() : ViewModel() {
             }
         }
         }// end of signUp fun
+
 
     private fun checkNullOrEmpty(inputs: ArrayList<String?>): Boolean {
         var result = true

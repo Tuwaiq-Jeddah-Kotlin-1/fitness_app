@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:tools="http://schemas.android.com/tools"
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
@@ -7,19 +8,26 @@
     name="create_Workout"
     type="com.tuwaiq.fitnessapp.data.Exercise" />
     </data>
-
-    <androidx.cardview.widget.CardView
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:text="add workout plan"
-        app:cardCornerRadius="5dp"
-        app:cardElevation="6dp"
-        android:layout_margin="20dp">
+        android:layout_height="wrap_content">
 
-        <LinearLayout
+
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/createItem_cardView"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_margin="10dp">
+            android:layout_height="50dp"
+            android:layout_margin="20dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginEnd="20dp"
+            android:text="add workout plan"
+            app:cardCornerRadius="5dp"
+            app:cardElevation="6dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
 
             <TextView
                 android:id="@+id/create_exercise_name"
@@ -27,11 +35,19 @@
                 android:layout_height="wrap_content"
                 android:text="@{create_Workout.exercise_name}" />
 
-            <CheckBox
-                android:id="@+id/checkBox_exercise"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:layout_marginStart="100dp" />
-        </LinearLayout>
-    </androidx.cardview.widget.CardView>
+        </androidx.cardview.widget.CardView>
+
+        <ImageView
+            android:id="@+id/select_item"
+            android:layout_width="52dp"
+            android:layout_height="42dp"
+            android:src="@drawable/ic_baseline_done_24"
+            android:visibility="gone"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.743"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

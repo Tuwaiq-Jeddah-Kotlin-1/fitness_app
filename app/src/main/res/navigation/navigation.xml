@@ -7,7 +7,7 @@
     <fragment
         android:id="@+id/signUp"
         android:name="com.tuwaiq.fitnessapp.ui.SignUp"
-        android:label="SignUp" >
+        android:label="SignUp">
         <action
             android:id="@+id/action_signUp_to_login"
             app:destination="@id/login" />
@@ -15,22 +15,30 @@
     <fragment
         android:id="@+id/login"
         android:name="com.tuwaiq.fitnessapp.ui.Login"
-        android:label="Login" >
+        android:label="Login">
         <action
             android:id="@+id/action_login_to_signUp"
             app:destination="@id/signUp" />
         <action
             android:id="@+id/action_login_to_mainScreen"
-            app:destination="@id/mainScreen" />
+            app:destination="@id/mainScreen"
+            app:popUpTo="@+id/login"
+            app:popUpToInclusive="true"/>
     </fragment>
     <fragment
         android:id="@+id/userProfile"
         android:name="com.tuwaiq.fitnessapp.ui.UserProfile"
-        android:label="UserProfile" />
+        android:label="UserProfile">
+        <action
+            android:id="@+id/action_userProfile_to_login"
+            app:destination="@id/login"
+            app:popUpTo="@+id/navigation"
+            app:popUpToInclusive="true"/>
+    </fragment>
     <fragment
         android:id="@+id/mainScreen"
         android:name="com.tuwaiq.fitnessapp.ui.MainScreen"
-        android:label="MainScreen" >
+        android:label="MainScreen">
         <action
             android:id="@+id/action_mainScreen_to_userProfile"
             app:destination="@id/userProfile" />
@@ -47,21 +55,14 @@
     <fragment
         android:id="@+id/exercisesList"
         android:name="com.tuwaiq.fitnessapp.ui.ExercisesList"
-        android:label="ExercisesList" >
-        <argument
-            android:name="category"
-            app:argType="string" />
+        android:label="ExercisesList">
         <action
-            android:id="@+id/action_exercisesList_to_playExercise2"
-            app:destination="@id/playExercise" />
-    </fragment>
-    <fragment
-        android:id="@+id/playExercise"
-        android:name="com.tuwaiq.fitnessapp.ui.PlayExercise"
-        android:label="playExercise" >
+            android:id="@+id/action_exercisesList_to_playExercisesList"
+            app:destination="@id/playExercisesList" />
         <argument
-            android:name="exercise"
+            android:name="list"
             app:argType="com.tuwaiq.fitnessapp.data.Exercise[]" />
+
     </fragment>
     <fragment
         android:id="@+id/create_workoutPlan"
@@ -70,9 +71,17 @@
     <fragment
         android:id="@+id/workout_exercises_list"
         android:name="com.tuwaiq.fitnessapp.ui.workout_exercises_list"
-        android:label="workout_exercises_list" >
+        android:label="workout_exercises_list">
         <argument
             android:name="workout_list"
             app:argType="com.tuwaiq.fitnessapp.data.Workout" />
+    </fragment>
+    <fragment
+        android:id="@+id/playExercisesList"
+        android:name="com.tuwaiq.fitnessapp.ui.playExercisesList"
+        android:label="playExercisesList" >
+        <argument
+            android:name="listToPlay"
+            app:argType="com.tuwaiq.fitnessapp.data.Exercise[]" />
     </fragment>
 </navigation>

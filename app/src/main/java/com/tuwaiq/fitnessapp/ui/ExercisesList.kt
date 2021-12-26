@@ -40,22 +40,21 @@ class ExercisesList : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val viewModel = ViewModelProvider(this)[VM_exercisesList::class.java]
         binding.lifecycleOwner = this
+
+
         binding.exerciseRv.layoutManager = LinearLayoutManager(requireContext())
 
+        // receive the list of exercises
         val args: ExercisesListArgs by navArgs()
-        val category = args.category
-        viewModel.getExercises(category)
-        viewModel.exercises.observe(viewLifecycleOwner, {
-            binding.exerciseRv.adapter = ExerciseAdapter(it)
-        })
+        val list = args.list
+        // assign the adapter to the RV and send the list to the adapter to show it on the recyclerView
+        binding.exerciseRv.adapter = ExerciseAdapter(list.toList())
+
+        // button to Start the workout!!
         binding.btnStartExercise.setOnClickListener {
-            viewModel.exercises.observe(viewLifecycleOwner, {
-                val action =
-                    ExercisesListDirections.actionExercisesListToPlayExercise2(it.toTypedArray())
+                val action = ExercisesListDirections.actionExercisesListToPlayExercisesList(list)
                 findNavController().navigate(action)
-                })
         }
     }
 

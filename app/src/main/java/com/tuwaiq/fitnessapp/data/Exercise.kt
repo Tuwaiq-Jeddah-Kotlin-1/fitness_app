@@ -9,5 +9,6 @@ data class Exercise(
     var exercise_id: String,
     var exercise_name: String,
     var category: String,
-    var image_url:String
+    var image_url:String,
+    var isSelected:Boolean=false
 ): Parcelable

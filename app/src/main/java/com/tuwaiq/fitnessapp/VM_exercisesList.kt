@@ -7,12 +7,15 @@ import com.tuwaiq.fitnessapp.Api.FitnessRepo
 import com.tuwaiq.fitnessapp.data.Exercise
 import kotlinx.coroutines.launch
 
-class VM_exercisesList:ViewModel() {
-    var exercises=MutableLiveData<List<Exercise>>()
-    val repo =FitnessRepo()
-    fun getExercises(category:String?){
+class VM_exercisesList : ViewModel() {
+    var exercises = MutableLiveData<List<Exercise>>()
+    val repo = FitnessRepo()
+    fun getExercises(category: String?) {
         viewModelScope.launch {
-            exercises.postValue(repo.getExercises(category))
+            val res = repo.getExercises(category)
+            if (res.isSuccessful) {
+                exercises.postValue(res.body()!!)
+            }
         }
     }
 

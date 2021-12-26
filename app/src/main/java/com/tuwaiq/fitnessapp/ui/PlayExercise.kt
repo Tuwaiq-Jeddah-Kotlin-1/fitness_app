@@ -7,11 +7,11 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.fragment.navArgs
 import coil.load
-import com.tuwaiq.fitnessapp.databinding.FragmentPlayExerciseBinding
+import com.tuwaiq.fitnessapp.databinding.FragmentPlayExerciseItemBinding
 
 
 class PlayExercise : Fragment() {
-    lateinit var binding: FragmentPlayExerciseBinding
+    lateinit var binding: FragmentPlayExerciseItemBinding
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -26,19 +26,19 @@ class PlayExercise : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        binding = FragmentPlayExerciseBinding.inflate(inflater, container, false)
+        binding = FragmentPlayExerciseItemBinding.inflate(inflater, container, false)
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val args: PlayExerciseArgs by navArgs()
-        val exerciseList = args.exercise
-        binding.lifecycleOwner = this
+      /*  val args: PlayExerciseArgs by navArgs()
+        val exerciseList = args.exercise*/
+    /*    binding.lifecycleOwner = this
         var position: Int = 0
         binding.playexercise = exerciseList[position]
-        binding.playExerciseImage.load(exerciseList[position].image_url)
-        binding.nextExercise.setOnClickListener {
+        binding.playExerciseImage.load(exerciseList[position].image_url)*/
+/*        binding.nextExercise.setOnClickListener {
             if(position>=exerciseList.size-1){
                 position=0
             }else{
@@ -55,6 +55,6 @@ class PlayExercise : Fragment() {
                 binding.playExerciseImage.load(exerciseList[position].image_url)
 
             }
-        }
+        }*/
     }
 }
