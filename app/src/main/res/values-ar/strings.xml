@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">FitnessApp</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="add">أضف</string>
+    <string name="title">title</string>
+    <string name="select_exercises_for_your_plan">اختر التمارين لإنشاء خطتك التدريبيه</string>
+    <string name="sign_up">انشئ حساب</string>
+    <string name="email">الإيميل</string>
+    <string name="password">كلمة السر</string>
+    <string name="gender">الجنس</string>
+    <string name="bmi">مؤشر كتلة الجسم</string>
+    <string name="user_information">معلومات المستخدم</string>
+    <string name="name">الاسم</string>
+    <string name="save_changes">احفظ التغييرات</string>
+    <string name="replay">اعاده تشغيل</string>
+    <string name="back_to_main_page">الى الصفحه الرئيسيه</string>
+    <string name="log_in">تسجيل دخول</string>
+    <string name="don_t_have_an_account">ليس لديك حساب؟</string>
+    <string name="startexercise">ابدأ التمرين</string>
+    <string name="exercise_list">قائمة التمارين</string>
+    <string name="to_calculate_your_bmi">لحساب مؤشر كتلة الجسم:</string>
+    <string name="weight">الوزن</string>
+    <string name="height">الطول</string>
+    <string name="skip"><![CDATA[تخطي >]]></string>
+    <string name="add_workout_plan">اضف خطه تدريبيه</string>
+    <string-array name="gender">
+        <item>انثى</item>
+        <item>ذكر</item>
+    </string-array>
+</resources>

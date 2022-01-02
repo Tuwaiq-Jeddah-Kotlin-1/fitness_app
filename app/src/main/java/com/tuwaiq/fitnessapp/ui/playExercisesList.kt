@@ -37,7 +37,7 @@ class playExercisesList : Fragment() {
         binding.lifecycleOwner = this
         val args: playExercisesListArgs by navArgs()
         val listToPlay = args.listToPlay
-       binding.playViewPager.adapter=Adapter_ViewPager(listToPlay.toList())
+       binding.playViewPager.adapter=Adapter_ViewPager(listToPlay.toList(),binding.playViewPager)
         binding.playViewPager.orientation=ViewPager2.ORIENTATION_HORIZONTAL
         binding.playIndicator.setViewPager(binding.playViewPager)
 

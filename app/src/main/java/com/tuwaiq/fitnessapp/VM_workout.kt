@@ -12,8 +12,8 @@ import kotlinx.coroutines.launch
 import retrofit2.await
 
 class VM_workout : ViewModel() {
-    var plan = MutableLiveData<ArrayList<Workout>>()
-    var exercises = MutableLiveData<List<Exercise>>()
+    var plan = MutableLiveData<MutableList<Workout>>()
+    val exercises = MutableLiveData<MutableList<Exercise>>()
 
     val repo = FitnessRepo()
     fun getWorkout(id: String?) {
@@ -30,9 +30,9 @@ class VM_workout : ViewModel() {
 
     }
 
-    fun getExercises(plan: Workout) {
+    fun getExercises(plan: Workout){
         val ex_list = plan.exercise_id
-        val exercises_list = mutableListOf<Exercise>()
+       val exercises_list = mutableListOf<Exercise>()
         viewModelScope.launch {
             for (i in ex_list) {
                 val res = repo.getExercisesById(i)
@@ -41,7 +41,7 @@ class VM_workout : ViewModel() {
                 }
                 //  Log.e("test----------- $i", repo.getExercisesById(i).first().toString())
             }
-            exercises.postValue(exercises_list)
+           exercises.postValue(exercises_list)
         }
     }
 

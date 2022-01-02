@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/navigation"
     app:startDestination="@id/login">
 
@@ -9,8 +10,8 @@
         android:name="com.tuwaiq.fitnessapp.ui.SignUp"
         android:label="SignUp">
         <action
-            android:id="@+id/action_signUp_to_login"
-            app:destination="@id/login" />
+            android:id="@+id/action_signUp_to_additionalInfo"
+            app:destination="@id/additionalInfo" />
     </fragment>
     <fragment
         android:id="@+id/login"
@@ -75,6 +76,9 @@
         <argument
             android:name="workout_list"
             app:argType="com.tuwaiq.fitnessapp.data.Workout" />
+        <action
+            android:id="@+id/action_workout_exercises_list_to_playExercisesList"
+            app:destination="@id/playExercisesList" />
     </fragment>
     <fragment
         android:id="@+id/playExercisesList"
@@ -83,5 +87,22 @@
         <argument
             android:name="listToPlay"
             app:argType="com.tuwaiq.fitnessapp.data.Exercise[]" />
+        <action
+            android:id="@+id/action_playExercisesList_to_mainScreen2"
+            app:destination="@id/mainScreen" />
+        <action
+            android:id="@+id/action_playExercisesList_to_exercisesList"
+            app:destination="@id/exercisesList" />
+    </fragment>
+    <fragment
+        android:id="@+id/additionalInfo"
+        android:name="com.tuwaiq.fitnessapp.ui.AdditionalInfo"
+        android:label="AdditionalInfo" >
+        <action
+            android:id="@+id/action_additionalInfo_to_login"
+            app:destination="@id/login" />
+        <argument
+            android:name="user"
+            app:argType="com.tuwaiq.fitnessapp.data.User" />
     </fragment>
 </navigation>

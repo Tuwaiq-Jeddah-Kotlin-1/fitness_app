@@ -7,6 +7,7 @@ import com.tuwaiq.fitnessapp.data.User
 import com.tuwaiq.fitnessapp.data.Workout
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
+import okhttp3.ResponseBody
 import retrofit2.Response
 import retrofit2.await
 
@@ -28,20 +29,25 @@ class FitnessRepo {
         api.getUser(auth.currentUser!!.email!!)
 
     }
+
     suspend fun getPlan(id:String?): Response<List<Workout>> = withContext(Dispatchers.IO) {
         api.getPlan(id)
     }
     suspend fun addUser(user: User) {
-        withContext(Dispatchers.IO) { api.addUser(user).await() }
+        withContext(Dispatchers.IO) { api.addUser(user)}
     }
     suspend fun addPlan(plan: Workout) {
-        withContext(Dispatchers.IO) { api.addPlan(plan).await()}
+        withContext(Dispatchers.IO) { api.addPlan(plan)}
     }
 
     suspend fun deletePlan(plan: Workout)=
         withContext(Dispatchers.IO) { api.deletePlan(plan.id).await() }
 
-    suspend fun updateUser(user: User) {
-        withContext(Dispatchers.IO) { api.updateUser(user.id,user) }
-    }
+    suspend fun updateUser(id:String,weight:Int,height:Int,bmi:String):Response<User> =
+        withContext(Dispatchers.IO) { api.updateUser(id,weight,height,bmi) }
+
+    suspend fun updateUserObj(id:String,name:String,weight:Int,height:Int,bmi:String):Response<User> =
+        withContext(Dispatchers.IO) { api.updateUserObject(id,name,weight,height,bmi) }
+
+
 }

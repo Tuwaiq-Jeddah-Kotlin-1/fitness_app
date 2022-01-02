@@ -12,6 +12,10 @@ import retrofit2.http.DELETE
 import retrofit2.http.Body
 
 import retrofit2.http.PATCH
+import retrofit2.http.PUT
+
+
+
 
 
 
@@ -24,6 +28,8 @@ interface FitnessApi {
     @GET("users")
     suspend fun getUser(@Query("email") email:String ):List<User>
 
+    @GET("users")
+    suspend fun getUserById(@Query("email") email:String ):List<User>
     @GET("/exercise")
     suspend fun getExercises(@Query("category") category:String? ):Response<List<Exercise>>
 
@@ -34,15 +40,30 @@ interface FitnessApi {
     suspend fun getPlan(@Query("user_id") user_id:String? ):Response<List<Workout>>
 
     @POST("users")
-    suspend fun addUser(@Body user: User):Call<ResponseBody>
+    suspend fun addUser(@Body user: User)
     @POST("/workout_Plans")
-    suspend fun addPlan(@Body plan: Workout):Call<ResponseBody>
+    suspend fun addPlan(@Body plan: Workout)
 //delete a plan
     @DELETE("workout_Plans/{id}")
-    fun deletePlan(@Path("id") id: String?):Call<ResponseBody>
+    suspend fun deletePlan(@Path("id") id: String?):Call<ResponseBody>
 
-    @PUT("workout_Plans/{id}")
-    fun updateUser(@Path("id") id: String?, @Body user: User?)
+    @FormUrlEncoded
+    @PUT("users/{id}")
+    suspend fun updateUser(
+        @Path("id") id: String,
+        @Field("weight") weight: Number,
+        @Field("height") height: Number,
+        @Field("bmi") bmi: String,
+    ):Response<User>
 
+   // fun updateUser(@Path("id") id: String?, @Body user: User?):Call<ResponseBody>
 
+    @FormUrlEncoded
+    @PUT("users/{id}")
+    suspend fun updateUserObject(
+        @Path("id") id: String,
+        @Field("name") name: String,
+        @Field("weight") weight: Number,
+        @Field("height") height: Number,
+        @Field("bmi") bmi: String,): Response<User>
 }

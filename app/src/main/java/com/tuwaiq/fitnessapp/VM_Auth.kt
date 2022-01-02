@@ -22,9 +22,6 @@ import kotlinx.coroutines.*
 class VM_Auth() : ViewModel() {
     var name= MutableLiveData<String>()
     var email= MutableLiveData<String>()
-    var age= MutableLiveData<String>()
-    var height= MutableLiveData<String>()
-    var weight= MutableLiveData<String>()
     var gender= MutableLiveData<String>()
     var password= MutableLiveData<String>()
     val fitnessRepo = FitnessRepo()
@@ -45,17 +42,15 @@ class VM_Auth() : ViewModel() {
 
             }
         }
-    }//end of login fun
-
+    }//end of login fun - old
     fun signUp(nav:NavController) {
         viewModelScope.launch {
-            if (checkNullOrEmpty(arrayListOf(name.value, email.value, age.value,
-                        gender.value, weight.value, height.value, password.value))) {
-               repo.repo_signUp(email.value!!, password.value!!,nav)
+            if (checkNullOrEmpty(arrayListOf(name.value, email.value,
+                        gender.value,password.value))) {
+               repo.repo_signUp(name.value!!,gender.value!!,email.value!!, password.value!!,nav)
                     response?.success("success sign up")
                     // user object
-                        val user =User("",name.value!!, age.value!!.toInt(),
-                            email.value!!, gender.value!!,weight.value!!.toDouble(),height.value!!.toInt())
+                        val user =User("",name.value!!,email.value!!,gender.value!!)
                    withContext(Dispatchers.IO){
                        fitnessRepo.addUser(user)
                    }//add the user
@@ -65,6 +60,27 @@ class VM_Auth() : ViewModel() {
         }
         }// end of signUp fun
 
+
+/*
+    fun signUp(nav:NavController) {
+        viewModelScope.launch {
+            if (checkNullOrEmpty(arrayListOf(name.value, email.value, age.value,
+                    gender.value, weight.value, height.value, password.value))) {
+                repo.repo_signUp(email.value!!, password.value!!,nav)
+                response?.success("success sign up")
+                // user object
+                val user =User("",name.value!!, age.value!!.toInt(),
+                    email.value!!, gender.value!!,weight.value!!.toDouble(),height.value!!.toInt())
+                withContext(Dispatchers.IO){
+                    fitnessRepo.addUser(user)
+                }//add the user
+            } else {
+                response?.fail("fail sign up")
+            }
+        }
+    }// end of signUp fun
+
+*/
 
     private fun checkNullOrEmpty(inputs: ArrayList<String?>): Boolean {
         var result = true

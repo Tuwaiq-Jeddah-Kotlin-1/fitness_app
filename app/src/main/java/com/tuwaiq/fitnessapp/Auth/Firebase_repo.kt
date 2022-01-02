@@ -10,6 +10,7 @@ import androidx.navigation.findNavController
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.tuwaiq.fitnessapp.R
+import com.tuwaiq.fitnessapp.data.User
 import com.tuwaiq.fitnessapp.ui.LoginDirections
 import com.tuwaiq.fitnessapp.ui.SignUp
 import com.tuwaiq.fitnessapp.ui.SignUpDirections
@@ -25,14 +26,15 @@ class Firebase_repo() {
     var response:Response?=null
 
 
-    suspend fun repo_signUp(email:String,password:String,nav:NavController){
+    suspend fun repo_signUp(name:String,gender:String,email:String,password:String,nav:NavController){
         withContext(Dispatchers.IO) {
             auth.createUserWithEmailAndPassword(email, password)
                 .addOnCompleteListener { task ->
                     if (task.isSuccessful) {
                         Log.d("Sign up", "................TASK SUCCEED.................")
                        // firebaseUserId = auth.currentUser!!.uid
-                        val action = SignUpDirections.actionSignUpToLogin()
+                        val user = User("",name,email,gender)
+                        val action = SignUpDirections.actionSignUpToAdditionalInfo(user)
                         nav.navigate(action)
                         response?.success("sign up repo worked")
 
@@ -60,12 +62,12 @@ class Firebase_repo() {
         }
 
 
-  /*  suspend fun repo_logOut() {
-        withContext(Dispatchers.IO) {
+    suspend fun repo_logOut(nav:NavController) {
+        withContext(Dispatchers.Main) {
             auth.signOut()
-         *//*   val action = UserProfileDirections.actionUserProfileToLogin()
-            nav.navigate(action)*//*
+           val action = UserProfileDirections.actionUserProfileToLogin()
+            nav.navigate(action)
         }
-    }*/
+    }
 
     }

@@ -7,6 +7,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.SearchView
 import androidx.core.view.isVisible
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -62,10 +63,21 @@ lateinit var binding:FragmentCreateWorkoutPlanBinding
 
         viewModel.exercises.observe(viewLifecycleOwner,{
             exList=it
-            adapter=CreatePlanAdapter(it)
+            adapter=CreatePlanAdapter(it.toMutableList())
             binding.RVCreatePlan.adapter=adapter
 
          //   adapter?.getItemSelected()
+        })
+        binding.searchView.setOnQueryTextListener(object: SearchView.OnQueryTextListener{
+            override fun onQueryTextSubmit(query: String?): Boolean {
+                return false
+            }
+
+            override fun onQueryTextChange(newText: String?): Boolean {
+                adapter?.filter?.filter(newText)
+                return false
+            }
+
         })
 
         binding.addplan.setOnClickListener {

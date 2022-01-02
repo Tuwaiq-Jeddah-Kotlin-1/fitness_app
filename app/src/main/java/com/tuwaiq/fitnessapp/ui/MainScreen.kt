@@ -1,5 +1,6 @@
 package com.tuwaiq.fitnessapp.ui
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.content.SharedPreferences
 import android.os.Bundle
@@ -15,10 +16,7 @@ import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.gson.Gson
-import com.tuwaiq.fitnessapp.R
-import com.tuwaiq.fitnessapp.VM_exercisesList
-import com.tuwaiq.fitnessapp.VM_profile
-import com.tuwaiq.fitnessapp.VM_workout
+import com.tuwaiq.fitnessapp.*
 import com.tuwaiq.fitnessapp.data.Exercise
 import com.tuwaiq.fitnessapp.data.User
 import com.tuwaiq.fitnessapp.data.Workout
@@ -49,33 +47,38 @@ class MainScreen : Fragment() {
 
     }
 
+    @SuppressLint("UseCompatLoadingForDrawables")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val profileVM = ViewModelProvider(this)[VM_profile::class.java]
-        val workoutVM = ViewModelProvider(this)[VM_workout::class.java]
-        val exerciseVM = ViewModelProvider(this)[VM_exercisesList::class.java]
-
         binding.lifecycleOwner = this
+        val mainVM=ViewModelProvider(this)[VMmain::class.java]
+        val workoutVM=ViewModelProvider(this)[VM_workout::class.java]
+
 
         // to add user info in the sharedPreferences
         val UserPrefrence = requireContext().getSharedPreferences("userInfo", Context.MODE_PRIVATE)
-        val gson = Gson()
-        var jsonGET = UserPrefrence.getString("userObj", "")
-        var userObjGet = gson.fromJson(jsonGET, User::class.java)
         // check if the user already there if not add it
-        if (userObjGet == null) {
-            profileVM.getUser_()
-            profileVM.user.observe(viewLifecycleOwner, {
-                // binding.userInfoMain = it.first()
-                val gson = Gson()
-                val json = gson.toJson(it.first())
-                UserPrefrence
-                    .edit()
-                    .putString("userObj", json)
-                    .apply()
-            })
-            jsonGET = UserPrefrence.getString("userObj", "")
-            userObjGet = gson.fromJson(jsonGET, User::class.java)
+        mainVM.getUser()
+        mainVM.user.observe(viewLifecycleOwner,{
+            val gson = Gson()
+            val json = gson.toJson(it)
+            UserPrefrence
+                .edit()
+                .putString("userObj", json)
+                .apply()
+            mainVM.getWorkout(it.id)
+
+        })
+        val jsonGET = UserPrefrence.getString("userObj", "")
+        val userObjGet = Gson().fromJson(jsonGET, User::class.java)
+        Log.e("gender",userObjGet.gender)
+
+        if (userObjGet.gender == "Female") {
+
+            binding.profilepic.setImageDrawable(resources.getDrawable(R.drawable.woman))
+        } else {
+            binding.profilepic.setImageDrawable(resources.getDrawable(R.drawable.ic_man_svgrepo_com))
+
         }
 
         binding.userInfoMain = userObjGet
@@ -83,54 +86,45 @@ class MainScreen : Fragment() {
 
         // initialize the workout title adapter
         var mainScreenAdaper: workout_main_adapter
-        workoutVM.getWorkout(userObjGet.id)
+
         binding.RVWorkoutTitle.layoutManager =
             LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
 
         //fill up the adapter with workouts list + implements swipe to delete functionality
-        workoutVM.plan.observe(viewLifecycleOwner, {
-            val listOfAllExercises=mutableListOf<List<Exercise>>()
-            for(i in it){
-                workoutVM.getExercises(i)
-                workoutVM.exercises.observe(viewLifecycleOwner,{list->
-                    listOfAllExercises.add(list)
-                })
-            }
-
-            mainScreenAdaper = workout_main_adapter(it, workoutVM, requireContext(),listOfAllExercises)
+        mainVM.plan?.observe(viewLifecycleOwner, {
+            mainScreenAdaper = workout_main_adapter(it!!, workoutVM, requireContext())
             val swipToDelete = ItemTouchHelper(SwipeToDeleteCallback(mainScreenAdaper))
             swipToDelete.attachToRecyclerView(binding.RVWorkoutTitle)
             binding.RVWorkoutTitle.adapter = mainScreenAdaper
 
         })
 
-
         // 4 buttons leads to screen show the exercise list by the category
         binding.tvCore.setOnClickListener {
-            exerciseVM.getExercises("Core")
-            exerciseVM.exercises.observe(viewLifecycleOwner, {
+            mainVM.getExercises("Core")
+            mainVM.exercises.observe(viewLifecycleOwner, {
                 val action = MainScreenDirections.actionMainScreenToExercisesList(it.toTypedArray())
                 findNavController().navigate(action)
             })
 
         }
         binding.tvLowerbody.setOnClickListener {
-            exerciseVM.getExercises("Lower Body")
-            exerciseVM.exercises.observe(viewLifecycleOwner, {
+            mainVM.getExercises("Lower Body")
+            mainVM.exercises.observe(viewLifecycleOwner, {
                 val action = MainScreenDirections.actionMainScreenToExercisesList(it.toTypedArray())
                 findNavController().navigate(action)
             })
         }
         binding.tvUpperbody.setOnClickListener {
-            exerciseVM.getExercises("Upper Body")
-            exerciseVM.exercises.observe(viewLifecycleOwner, {
+            mainVM.getExercises("Upper Body")
+            mainVM.exercises.observe(viewLifecycleOwner, {
                 val action = MainScreenDirections.actionMainScreenToExercisesList(it.toTypedArray())
                 findNavController().navigate(action)
             })
         }
         binding.tvWarmUp.setOnClickListener {
-            exerciseVM.getExercises("warm up")
-            exerciseVM.exercises.observe(viewLifecycleOwner, {
+            mainVM.getExercises("warm up")
+            mainVM.exercises.observe(viewLifecycleOwner, {
                 val action = MainScreenDirections.actionMainScreenToExercisesList(it.toTypedArray())
                 findNavController().navigate(action)
             })

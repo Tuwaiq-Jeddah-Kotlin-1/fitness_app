@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.tuwaiq.fitnessapp.R
@@ -16,7 +17,7 @@ import com.tuwaiq.fitnessapp.databinding.FragmentWorkoutExercisesListBinding
 
 
 class workout_exercises_list : Fragment() {
-lateinit var binding:FragmentWorkoutExercisesListBinding
+    lateinit var binding: FragmentWorkoutExercisesListBinding
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -33,7 +34,7 @@ lateinit var binding:FragmentWorkoutExercisesListBinding
 
     companion object {
 
-        fun newInstance()=workout_exercises_list()
+        fun newInstance() = workout_exercises_list()
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -44,8 +45,12 @@ lateinit var binding:FragmentWorkoutExercisesListBinding
         val args: workout_exercises_listArgs by navArgs()
         val workout = args.workoutList
         viewModel.getExercises(workout)
-        viewModel.exercises.observe(viewLifecycleOwner,{
-            binding.planExerciseRv.adapter=WorkoutExerciseListAdapter(it)
+        viewModel.exercises.observe(viewLifecycleOwner, {exerciseList ->
+            binding.planExerciseRv.adapter = WorkoutExerciseListAdapter(exerciseList)
+            binding.btnPlanStartExercise.setOnClickListener {
+                val action =workout_exercises_listDirections.actionWorkoutExercisesListToPlayExercisesList(exerciseList.toTypedArray())
+                findNavController().navigate(action)
+            }
         })
 
     }

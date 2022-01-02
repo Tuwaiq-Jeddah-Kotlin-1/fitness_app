@@ -4,34 +4,24 @@ import android.content.Context
 import android.graphics.Canvas
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.databinding.DataBindingUtil
-import androidx.lifecycle.LifecycleObserver
-import androidx.lifecycle.LifecycleOwner
-import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModel
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
-import coil.load
-import com.google.android.gms.common.api.internal.LifecycleFragment
 import com.tuwaiq.fitnessapp.VM_workout
 import com.tuwaiq.fitnessapp.data.Exercise
 import com.tuwaiq.fitnessapp.data.Workout
 import com.tuwaiq.fitnessapp.databinding.ExerciseItemBinding
 import com.tuwaiq.fitnessapp.databinding.WorkoutItemBinding
 
-import com.tuwaiq.fitnessapp.MainActivity
-
-import androidx.core.content.ContextCompat
 import com.tuwaiq.fitnessapp.R
 import android.graphics.drawable.ColorDrawable
 import android.util.Log
 import android.widget.Toast
 
 
-class workout_main_adapter (val workout: ArrayList<Workout>,val viewModel:VM_workout
-,val context: Context,val listOfList:List<List<Exercise>>) : RecyclerView.Adapter<Workout_Title_Holder>()  {
+class workout_main_adapter (val workout: MutableList<Workout>,val viewModel:VM_workout
+,val context: Context) : RecyclerView.Adapter<Workout_Title_Holder>()  {
 private lateinit var mListener:OnItemClickListener
     interface OnItemClickListener{
         fun onItemClick(position :Int)
@@ -65,7 +55,7 @@ private lateinit var mListener:OnItemClickListener
         val workout = workout[position]
         holder.bind(workout)
         holder.itemView.setOnClickListener{
-       val action=MainScreenDirections.actionMainScreenToExercisesList(listOfList[position].toTypedArray())
+       val action=MainScreenDirections.actionMainScreenToWorkoutExercisesList(workout)
             holder.itemView.findNavController().navigate(action)
         }
     }
@@ -73,7 +63,6 @@ private lateinit var mListener:OnItemClickListener
     override fun getItemCount(): Int {
         return workout.size
     }
-
 }
 
 class Workout_Title_Holder (val binding : WorkoutItemBinding) : RecyclerView.ViewHolder(binding.root) {
